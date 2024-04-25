@@ -33,9 +33,15 @@ func main() {
 	})
 	targeters := []vegeta.Targeter{targeter1, targeter2, targeter3, targeter4, targeter5}
 
-	attack(500, 60*time.Second, targeters)
-	attack(1000, 60*time.Second, targeters)
-	attack(2000, 60*time.Second, targeters)
+	attack(50, 10*time.Minute, targeters)
+	time.Sleep(60 * time.Second)
+	attack(100, 10*time.Minute, targeters)
+	time.Sleep(60 * time.Second)
+	attack(500, 10*time.Minute, targeters)
+	time.Sleep(60 * time.Second)
+	attack(1000, 10*time.Minute, targeters)
+	time.Sleep(60 * time.Second)
+	attack(2000, 10*time.Minute, targeters)
 }
 
 func attack(frequency int, duration time.Duration, targeters []vegeta.Targeter) {
@@ -58,6 +64,6 @@ func attack(frequency int, duration time.Duration, targeters []vegeta.Targeter) 
 	}
 
 	fmt.Printf("Duration: %s\n", duration)
-	fmt.Printf("Rate: %f (nanosecond)\n", metrics.Rate)
+	fmt.Printf("Rate: sent requests %f per second\n", metrics.Rate)
 	fmt.Printf("Latencies: %s (nanosecond)\n", string(marshal))
 }
